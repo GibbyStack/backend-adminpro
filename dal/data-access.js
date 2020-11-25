@@ -24,16 +24,14 @@ const query = async(stpName, sqlParams) => {
     return resp.recordset;
 }
 
-
-
 //QuerySingle Getby
 const querySingle = async(stpName, sqlParams) => {
     sql.on('error', err => {
         console.log(err);
         response.json({
-            status: false,
-            message: 'Error en la conexion a la BD',
-            data: err
+            ok: false,
+            message: 'Error',
+            error: err
         });
     });
 
@@ -45,7 +43,7 @@ const querySingle = async(stpName, sqlParams) => {
         });
     }
     const resp = await req.execute(stpName);
-    return resp.recorset[0];
+    return resp.recordset[0];
 }
 
 //Execute consultas
@@ -53,9 +51,9 @@ const execute = async(stpName, sqlParams) => {
     sql.on('error', err => {
         console.log(err);
         response.json({
-            status: false,
-            message: 'Error en la conexion a la BD',
-            data: err
+            ok: false,
+            message: 'Error',
+            error: err
         });
     });
 

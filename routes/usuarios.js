@@ -22,7 +22,7 @@ router.post('/', [
     addUsuario);
 
 //Update
-router.put('/:id', [
+router.put('/', [
         check('nombre', 'El nombre es requerido').not().isEmpty(),
         check('email', 'El email es requerido').not().isEmpty(),
         check('password', 'El password es requerido').not().isEmpty(),

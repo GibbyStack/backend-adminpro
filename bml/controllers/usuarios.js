@@ -3,12 +3,13 @@ const bcrypt = require('bcryptjs');
 const { query, querySingle, execute } = require('../../dal/data-access');
 
 //Obtener usuarios
-const getUsuarios = async(req, res = response) => {
+const getUsuarios = async(req, res) => {
     let usuarios = await query('stp_usuarios_getall');
     if (usuarios) {
         res.json({
             status: true,
-            message: 'Consulta exitosa'
+            message: 'Consulta exitosa',
+            data: usuarios
         });
     } else {
         res.status(400).json({
@@ -22,7 +23,7 @@ const getUsuarios = async(req, res = response) => {
 const getUsuario = async(req, res) => {
     const { id } = req.params;
     const sqlParams = [{
-        'name': 'id',
+        'name': 'idUsuario',
         'value': id
     }];
 
@@ -30,7 +31,8 @@ const getUsuario = async(req, res) => {
     if (usuario) {
         res.json({
             status: true,
-            message: 'Consulta exitosa'
+            message: 'Consulta exitosa',
+            data: usuario
         });
     } else {
         res.status(400).json({
@@ -74,30 +76,24 @@ const addUsuario = async(req, res) => {
     ];
 
     let rowsAffected = await execute('stp_usuarios_add', sqlParams);
-    if (rowsAffected) {
+    if (rowsAffected != 0) {
         res.json({
             status: true,
             message: 'Usuario agregado exitosamente',
-            data: res
+            data: rowsAffected
         });
     } else {
         res.status(400).json({
             status: false,
             message: 'Ocurrio un error al agregar el usuario',
-            data: res
         });
     }
 }
 
 //Actualizar Usuario
 const updateUsuario = async(req, res) => {
-    const { id } = req.params;
     const { nombre, email, password } = req.body;
     const sqlParams = [{
-            'name': 'idUsuario',
-            'value': id
-        },
-        {
             'name': 'nombre',
             'value': nombre
         },
@@ -108,14 +104,32 @@ const updateUsuario = async(req, res) => {
         {
             'name': 'password',
             'value': password
+        },
+        {
+            'name': 'google',
+            'value': 0
+        },
+        {
+            'name': 'facebook',
+            'value': 0
+        },
+        {
+            'name': 'nativo',
+            'value': 1
+        },
+        {
+            'name': 'picture',
+            'value': ''
         }
     ];
 
     let rowsAffected = await execute('stp_usuarios_update', sqlParams);
-    if (rowsAffected) {
+
+    if (rowsAffected != 0) {
         res.json({
             status: true,
-            message: 'Usuario actualizao correctamente'
+            message: 'Usuario actualizao correctamente',
+            data: rowsAffected
         });
     } else {
         res.status(400).json({
@@ -134,10 +148,11 @@ const deleteUsuario = async(req, res) => {
     }];
 
     let rowsAffected = await execute('stp_usuarios_delete', sqlParams);
-    if (rowsAffected) {
+    if (rowsAffected != 0) {
         res.json({
             status: true,
-            message: 'Usuario eliminado correctamente'
+            message: 'Usuario eliminado correctamente',
+            data: rowsAffected
         });
     } else {
         res.status(400).json({

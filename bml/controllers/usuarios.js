@@ -19,7 +19,7 @@ const getUsuarios = async(req, res) => {
     }
 }
 
-//Obtener un Usuario
+//Obtener usuario
 const getUsuario = async(req, res) => {
     const { id } = req.params;
     const sqlParams = [{
@@ -42,7 +42,7 @@ const getUsuario = async(req, res) => {
     }
 }
 
-//Agregar un usuario
+//Agregar usuario
 const addUsuario = async(req, res) => {
     const { nombre, email, password } = req.body;
     const sqlParams = [{
@@ -80,7 +80,7 @@ const addUsuario = async(req, res) => {
         res.json({
             status: true,
             message: 'Usuario agregado exitosamente',
-            data: rowsAffected
+            data: 1
         });
     } else {
         res.status(400).json({
@@ -90,7 +90,7 @@ const addUsuario = async(req, res) => {
     }
 }
 
-//Actualizar Usuario
+//Actualizar usuario
 const updateUsuario = async(req, res) => {
     const { nombre, email, password } = req.body;
     const sqlParams = [{
@@ -128,8 +128,8 @@ const updateUsuario = async(req, res) => {
     if (rowsAffected != 0) {
         res.json({
             status: true,
-            message: 'Usuario actualizao correctamente',
-            data: rowsAffected
+            message: 'Usuario actualizado correctamente',
+            data: 1
         });
     } else {
         res.status(400).json({
@@ -139,7 +139,7 @@ const updateUsuario = async(req, res) => {
     }
 }
 
-//Borrar usuarios
+//Borrar usuario
 const deleteUsuario = async(req, res) => {
     const { id } = req.params;
     const sqlParams = [{
@@ -152,7 +152,7 @@ const deleteUsuario = async(req, res) => {
         res.json({
             status: true,
             message: 'Usuario eliminado correctamente',
-            data: rowsAffected
+            data: 1
         });
     } else {
         res.status(400).json({

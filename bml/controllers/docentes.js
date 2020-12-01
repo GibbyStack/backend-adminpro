@@ -14,7 +14,8 @@ const getDocentes = async(req, res) => {
     } else {
         res.status(400).json({
             status: false,
-            message: 'Ocurrio un error al consultar los docentes'
+            message: 'Ocurrio un error al consultar los docentes',
+            data: null
         });
     }
 }
@@ -37,7 +38,8 @@ const getDocente = async(req, res) => {
     } else {
         res.status(400).json({
             status: false,
-            message: 'Ocurrio un error al consultar el docente'
+            message: 'Ocurrio un error al consultar el docente',
+            data: null
         });
     }
 }
@@ -74,6 +76,7 @@ const addDocente = async(req, res) => {
         res.status(400).json({
             status: false,
             message: 'Ocurrio un error al agregar el docente',
+            data: 1
         });
     }
 }
@@ -115,7 +118,8 @@ const updateDocente = async(req, res) => {
     } else {
         res.status(400).json({
             status: false,
-            message: 'Ocurrio un error al actualizar el docente'
+            message: 'Ocurrio un error al actualizar el docente',
+            data: 0
         });
     }
 }
@@ -138,7 +142,8 @@ const deleteDocente = async(req, res) => {
     } else {
         res.status(400).json({
             status: false,
-            message: 'Ocurrio un error al eliminar el docente'
+            message: 'Ocurrio un error al eliminar el docente',
+            dato: 0
         });
     }
 }

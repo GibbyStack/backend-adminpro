@@ -14,7 +14,8 @@ const getMaterias = async(req, res) => {
     } else {
         res.status(400).json({
             status: false,
-            message: 'Ocurrio un error al consultar las materias'
+            message: 'Ocurrio un error al consultar las materias',
+            data: null
         });
     }
 }
@@ -37,7 +38,8 @@ const getMateria = async(req, res) => {
     } else {
         res.status(400).json({
             status: false,
-            message: 'Ocurrio un error al consultar la materia'
+            message: 'Ocurrio un error al consultar la materia',
+            data: null
         });
     }
 }
@@ -78,6 +80,7 @@ const addMateria = async(req, res) => {
         res.status(400).json({
             status: false,
             message: 'Ocurrio un error al agregar la materia',
+            data: 0
         });
     }
 }
@@ -123,7 +126,8 @@ const updateMateria = async(req, res) => {
     } else {
         res.status(400).json({
             status: false,
-            message: 'Ocurrio un error al actualizar la materia'
+            message: 'Ocurrio un error al actualizar la materia',
+            data: 0
         });
     }
 }
@@ -146,7 +150,8 @@ const deleteMateria = async(req, res) => {
     } else {
         res.status(400).json({
             status: false,
-            message: 'Ocurrio un error al eliminar la materia'
+            message: 'Ocurrio un error al eliminar la materia',
+            data: 0
         });
     }
 }

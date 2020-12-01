@@ -14,7 +14,8 @@ const getUsuarios = async(req, res) => {
     } else {
         res.status(400).json({
             status: false,
-            message: 'Ocurrio un error al consultar los usuarios'
+            message: 'Ocurrio un error al consultar los usuarios',
+            data: null
         });
     }
 }
@@ -37,7 +38,8 @@ const getUsuario = async(req, res) => {
     } else {
         res.status(400).json({
             status: false,
-            message: 'Ocurrio un error al consultar el usuario'
+            message: 'Ocurrio un error al consultar el usuario',
+            data: null
         });
     }
 }
@@ -86,6 +88,7 @@ const addUsuario = async(req, res) => {
         res.status(400).json({
             status: false,
             message: 'Ocurrio un error al agregar el usuario',
+            data: 0
         });
     }
 }
@@ -134,7 +137,8 @@ const updateUsuario = async(req, res) => {
     } else {
         res.status(400).json({
             status: false,
-            message: 'Ocurrio un error al actualizar el usuario'
+            message: 'Ocurrio un error al actualizar el usuario',
+            data: 0
         });
     }
 }
@@ -157,7 +161,8 @@ const deleteUsuario = async(req, res) => {
     } else {
         res.status(400).json({
             status: false,
-            message: 'Ocurrio un error al eliminar el usuario'
+            message: 'Ocurrio un error al eliminar el usuario',
+            data: 0
         });
     }
 }

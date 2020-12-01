@@ -9,7 +9,7 @@ const query = async(stpName, sqlParams) => {
         response.json({
             ok: false,
             message: 'Error',
-            error: err
+            data: err
         });
     });
 
@@ -31,7 +31,7 @@ const querySingle = async(stpName, sqlParams) => {
         response.json({
             ok: false,
             message: 'Error',
-            error: err
+            data: err
         });
     });
 
@@ -53,7 +53,7 @@ const execute = async(stpName, sqlParams) => {
         response.json({
             ok: false,
             message: 'Error',
-            error: err
+            data: err
         });
     });
 

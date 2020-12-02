@@ -12,7 +12,7 @@ const getUsuarios = async(req, res) => {
             data: usuarios
         });
     } else {
-        res.status(400).json({
+        res.json({
             status: false,
             message: 'Ocurrio un error al consultar los usuarios',
             data: null
@@ -36,7 +36,7 @@ const getUsuario = async(req, res) => {
             data: usuario
         });
     } else {
-        res.status(400).json({
+        res.json({
             status: false,
             message: 'Ocurrio un error al consultar el usuario',
             data: null
@@ -47,6 +47,8 @@ const getUsuario = async(req, res) => {
 //Agregar usuario
 const addUsuario = async(req, res) => {
     const { nombre, email, password } = req.body;
+    const salt = bcrypt.genSaltSync();
+    const newPassword = bcrypt.hashSync(password, salt);
     const sqlParams = [{
             'name': 'nombre',
             'value': nombre
@@ -57,7 +59,7 @@ const addUsuario = async(req, res) => {
         },
         {
             'name': 'password',
-            'value': password
+            'value': newPassword
         },
         {
             'name': 'google',
@@ -76,20 +78,33 @@ const addUsuario = async(req, res) => {
             'value': ''
         }
     ];
+    const sqlParams1 = [{
+        'name': 'email',
+        'value': email
+    }]
 
-    let rowsAffected = await execute('stp_usuarios_add', sqlParams);
-    if (rowsAffected != 0) {
-        res.json({
-            status: true,
-            message: 'Usuario agregado exitosamente',
-            data: 1
-        });
+    let usuario = await querySingle('stp_usuarios_login', sqlParams1);
+    if (!usuario) {
+        usuario = await querySingle('stp_usuarios_add', sqlParams);
+        if (usuario) {
+            res.json({
+                status: true,
+                message: 'Usuario agregado exitosamente',
+                data: usuario
+            });
+        } else {
+            res.json({
+                status: false,
+                message: 'Ocurrio un error al agregar el usuario',
+                data: null
+            });
+        }
     } else {
-        res.status(400).json({
+        res.json({
             status: false,
-            message: 'Ocurrio un error al agregar el usuario',
-            data: 0
-        });
+            message: 'Ya existe un usuario con ese email',
+            data: null
+        })
     }
 }
 
@@ -135,7 +150,7 @@ const updateUsuario = async(req, res) => {
             data: 1
         });
     } else {
-        res.status(400).json({
+        res.json({
             status: false,
             message: 'Ocurrio un error al actualizar el usuario',
             data: 0
@@ -159,7 +174,7 @@ const deleteUsuario = async(req, res) => {
             data: 1
         });
     } else {
-        res.status(400).json({
+        res.json({
             status: false,
             message: 'Ocurrio un error al eliminar el usuario',
             data: 0

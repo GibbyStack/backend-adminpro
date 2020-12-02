@@ -2,12 +2,12 @@ const Router = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../bml/middlewares/validar-campos');
 const { getUsuarios, getUsuario, addUsuario, updateUsuario, deleteUsuario } = require('../bml/controllers/usuarios')
-
+const { validarJWT } = require('../bml/middlewares/validar-jwt');
 
 const router = Router();
 
 //GetAll
-router.get('/', getUsuarios);
+router.get('/', validarJWT, getUsuarios);
 
 //Getbyid
 router.get('/:id', getUsuario);

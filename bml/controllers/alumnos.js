@@ -12,7 +12,7 @@ const getAlumnos = async(req, res) => {
             data: alumnos
         });
     } else {
-        res.status(400).json({
+        res.json({
             status: false,
             message: 'Ocurrio un error al consultar los alumnos',
             data: null
@@ -36,7 +36,7 @@ const getAlumno = async(req, res) => {
             data: alumno
         });
     } else {
-        res.status(400).json({
+        res.json({
             status: false,
             message: 'Ocurrio un error al consultar el alumno',
             data: null
@@ -78,7 +78,7 @@ const addAlumno = async(req, res) => {
             data: 1
         });
     } else {
-        res.status(400).json({
+        res.json({
             status: false,
             message: 'Ocurrio un error al agregar el alumno',
             data: 0
@@ -125,7 +125,7 @@ const updateAlumno = async(req, res) => {
             data: 1
         });
     } else {
-        res.status(400).json({
+        res.json({
             status: false,
             message: 'Ocurrio un error al actualizar el alumno',
             data: 0
@@ -149,7 +149,7 @@ const deleteAlumno = async(req, res) => {
             data: 1
         });
     } else {
-        res.status(400).json({
+        res.json({
             status: false,
             message: 'Ocurrio un error al eliminar el alumno',
             data: 0

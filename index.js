@@ -16,5 +16,6 @@ app.use('/api/usuarios', require('./routes/usuarios'));
 app.use('/api/alumnos', require('./routes/alumnos'));
 app.use('/api/docentes', require('./routes/docentes'));
 app.use('/api/materias', require('./routes/materias'));
+app.use('/api/login', require('./routes/auth'));
 
 app.listen(process.env.PORT);

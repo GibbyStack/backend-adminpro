@@ -7,7 +7,7 @@ const { validarJWT } = require('../bml/middlewares/validar-jwt');
 const router = Router();
 
 //GetAll
-router.get('/', validarJWT, getUsuarios);
+router.get('/', getUsuarios);
 
 //Getbyid
 router.get('/:id', getUsuario);

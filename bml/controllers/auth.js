@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { generateJWT } = require('../helpers/jwt');
 const { querySingle } = require('../../dal/data-access');
-
+const { googleVerify } = require('../helpers/google-verify');
 
 const login = async(req, res) => {
     const { email, password } = req.body;
@@ -40,6 +40,102 @@ const login = async(req, res) => {
     });
 }
 
+const googleSignIn = async(req, res) => {
+    const googleToken = req.body.token;
+    let usuario = null;
+    let sqlParams = null;
+
+    try {
+        const { name, email, picture } = await googleVerify(googleToken);
+        console.log(name);
+        sqlParams = [{
+            'name': 'email',
+            'value': email
+        }];
+        usuario = await querySingle('stp_usuarios_login', sqlParams);
+        //verificasr si existe en BD
+        if (!usuario) {
+            //crear usuario
+            sqlParams = [{
+                    'name': 'nombre',
+                    'value': name
+                },
+                {
+                    'name': 'email',
+                    'value': email
+                },
+                {
+                    'name': 'password',
+                    'value': ''
+                },
+                {
+                    'name': 'google',
+                    'value': 1
+                },
+                {
+                    'name': 'facebook',
+                    'value': 0
+                },
+                {
+                    'name': 'nativo',
+                    'value': 0
+                },
+                {
+                    'name': 'picture',
+                    'value': picture
+                },
+            ];
+            usuario = await querySingle('stp_usuarios_add', sqlParams);
+            console.log(usuario);
+        } else {
+            //actualizar usuario
+            sqlParams = [{
+                    'name': 'nombre',
+                    'value': usuario.name
+                },
+                {
+                    'name': 'email',
+                    'value': usuario.email
+                },
+                {
+                    'name': 'password',
+                    'value': usuario.password
+                },
+                {
+                    'name': 'google',
+                    'value': 1
+                },
+                {
+                    'name': 'facebook',
+                    'value': 0
+                },
+                {
+                    'name': 'nativo',
+                    'value': 0
+                },
+                {
+                    'name': 'picture',
+                    'value': usuario.picture
+                },
+            ];
+            usuario = await querySingle('stp_usuarios_update', sqlParams);
+        }
+        const token = await generateJWT(usuario.idUsuario);
+        res.json({
+            status: true,
+            message: 'Acceso correcto',
+            data: token
+        });
+    } catch (err) {
+        res.status(401).json({
+            status: false,
+            message: 'Ocurrio un error',
+            data: err
+        })
+    }
+}
+
 module.exports = {
-    login
+    login,
+    googleSignIn
 }

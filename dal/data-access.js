@@ -4,15 +4,6 @@ const conString = require('./config');
 
 //Query Selects GetAll
 const query = async(stpName, sqlParams) => {
-    sql.on('error', err => {
-        console.log(err);
-        response.json({
-            ok: false,
-            message: 'Error',
-            data: err
-        });
-    });
-
     const pool = await sql.connect(conString);
     const req = await pool.request();
     if (typeof sqlParams !== 'undefined') {
@@ -26,15 +17,6 @@ const query = async(stpName, sqlParams) => {
 
 //QuerySingle Getby
 const querySingle = async(stpName, sqlParams) => {
-    sql.on('error', err => {
-        console.log(err);
-        response.json({
-            ok: false,
-            message: 'Error',
-            data: err
-        });
-    });
-
     const pool = await sql.connect(conString);
     const req = await pool.request();
     if (typeof sqlParams !== 'undefined') {
@@ -48,15 +30,6 @@ const querySingle = async(stpName, sqlParams) => {
 
 //Execute consultas
 const execute = async(stpName, sqlParams) => {
-    sql.on('error', err => {
-        console.log(err);
-        response.json({
-            ok: false,
-            message: 'Error',
-            data: err
-        });
-    });
-
     const pool = await sql.connect(conString);
     const req = await pool.request();
     if (typeof sqlParams !== 'undefined') {

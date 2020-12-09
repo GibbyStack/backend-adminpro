@@ -1,5 +1,3 @@
-const { response } = require('express');
-const bcrypt = require('bcryptjs');
 const { query, querySingle, execute } = require('../../dal/data-access');
 
 //Obtener docentes

@@ -1,7 +1,8 @@
 const { Router } = require('express');
-const { login, googleSignIn } = require('../bml/controllers/auth');
+const { login, googleSignIn, loginToken } = require('../bml/controllers/auth');
 const { check } = require('express-validator');
 const { validarCampos } = require('../bml/middlewares/validar-campos');
+const { validarJWT } = require('../bml/middlewares/validar-jwt');
 
 const router = Router();
 
@@ -18,5 +19,7 @@ router.post('/google', [
         validarCampos
     ],
     googleSignIn);
+
+router.get('/renew', validarJWT);
 
 module.exports = router;

@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const { generateJWT } = require('../helpers/jwt');
 const { querySingle } = require('../../dal/data-access');
 const { googleVerify } = require('../helpers/google-verify');
+const { validarJWT } = require('../middlewares/validar-jwt');
 
 const login = async(req, res) => {
     const { email, password } = req.body;
@@ -47,7 +48,6 @@ const googleSignIn = async(req, res) => {
 
     try {
         const { name, email, picture } = await googleVerify(googleToken);
-        console.log(name);
         sqlParams = [{
             'name': 'email',
             'value': email
@@ -86,7 +86,6 @@ const googleSignIn = async(req, res) => {
                 },
             ];
             usuario = await querySingle('stp_usuarios_add', sqlParams);
-            console.log(usuario);
         } else {
             //actualizar usuario
             sqlParams = [{
@@ -131,7 +130,7 @@ const googleSignIn = async(req, res) => {
             status: false,
             message: 'Ocurrio un error',
             data: err
-        })
+        });
     }
 }
 

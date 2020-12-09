@@ -5,18 +5,25 @@ const validarJWT = (req, res, next) => {
     if (!token) {
         return res.status(401).json({
             status: false,
-            message: 'No hay token en la peticion'
+            message: 'No hay token en la peticion',
+            data: null
         });
     }
 
     try {
         const { id } = jwt.verify(token, process.env.JWT_SECRET);
         req.id = id;
+        return res.status(200).json({
+            status: true,
+            message: 'Token válido',
+            data: token
+        });
         next();
     } catch (error) {
         return res.status(401).json({
             status: false,
-            message: 'Token no válido'
+            message: 'Token no válido',
+            data: null
         });
     }
 }

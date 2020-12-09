@@ -110,6 +110,7 @@ const addUsuario = async(req, res) => {
 //Actualizar usuario
 const updateUsuario = async(req, res) => {
     const { nombre, email, password } = req.body;
+
     const sqlParams = [{
             'name': 'nombre',
             'value': nombre
@@ -181,10 +182,41 @@ const deleteUsuario = async(req, res) => {
     }
 }
 
+const changePassword = async(req, res) => {
+    const { email, password } = req.body;
+    const salt = bcrypt.genSaltSync();
+    const newPassword = bcrypt.hashSync(password, salt);
+    const sqlParams = [{
+            'name': 'email',
+            'value': email
+        },
+        {
+            'name': 'password',
+            'value': newPassword
+        }
+    ]
+
+    let rowsAffected = await execute('stp_usuarios_changePassword', sqlParams);
+    if (rowsAffected != 0) {
+        res.json({
+            status: true,
+            message: 'Contraseña actualizada correctamente',
+            data: 1
+        });
+    } else {
+        res.json({
+            status: false,
+            message: 'Ocurrio un error al actualizar la contraseña',
+            data: 0
+        });
+    }
+}
+
 module.exports = {
     getUsuarios,
     getUsuario,
     addUsuario,
     updateUsuario,
-    deleteUsuario
+    deleteUsuario,
+    changePassword
 }

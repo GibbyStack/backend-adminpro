@@ -122,13 +122,13 @@ const googleSignIn = async(req, res) => {
         const token = await generateJWT(usuario.idUsuario);
         res.json({
             status: true,
-            message: 'Acceso correcto',
+            message: 'Acceso por google correcto',
             data: token
         });
     } catch (err) {
-        res.status(401).json({
+        res.json({
             status: false,
-            message: 'Ocurrio un error',
+            message: 'Acceso por google incorrecto',
             data: err
         });
     }

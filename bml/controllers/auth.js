@@ -53,6 +53,7 @@ const googleSignIn = async(req, res) => {
             'value': email
         }];
         usuario = await querySingle('stp_usuarios_login', sqlParams);
+        console.log(usuario);
         //verificasr si existe en BD
         if (!usuario) {
             //crear usuario

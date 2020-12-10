@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { generateJWT } = require('../helpers/jwt');
 
 const validarJWT = (req, res, next) => {
     const token = req.header('x-token');
@@ -13,10 +14,33 @@ const validarJWT = (req, res, next) => {
     try {
         const { id } = jwt.verify(token, process.env.JWT_SECRET);
         req.id = id;
+        next();
+    } catch (error) {
+        return res.status(401).json({
+            status: false,
+            message: 'Token no válido',
+            data: null
+        });
+    }
+}
+
+const renewJWT = async(req, res, next) => {
+    const token = req.header('x-token');
+    if (!token) {
+        return res.status(401).json({
+            status: false,
+            message: 'No hay token en la peticion',
+            data: null
+        });
+    }
+    try {
+        const { id } = jwt.verify(token, process.env.JWT_SECRET);
+        req.id = id;
+        const newtoken = await generateJWT(id);
         return res.status(200).json({
             status: true,
             message: 'Token válido',
-            data: token
+            data: newtoken
         });
         next();
     } catch (error) {
@@ -29,5 +53,6 @@ const validarJWT = (req, res, next) => {
 }
 
 module.exports = {
-    validarJWT
+    validarJWT,
+    renewJWT
 }

@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { login, googleSignIn, loginToken } = require('../bml/controllers/auth');
+const { login, googleSignIn } = require('../bml/controllers/auth');
 const { check } = require('express-validator');
 const { validarCampos } = require('../bml/middlewares/validar-campos');
 const { renewJWT } = require('../bml/middlewares/validar-jwt');

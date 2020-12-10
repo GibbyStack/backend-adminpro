@@ -10,7 +10,6 @@ const validarJWT = (req, res, next) => {
             data: null
         });
     }
-
     try {
         const { id } = jwt.verify(token, process.env.JWT_SECRET);
         req.id = id;

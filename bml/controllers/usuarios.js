@@ -46,37 +46,6 @@ const getUsuario = async(req, res) => {
 //Agregar usuario
 const addUsuario = async(req, res) => {
     const { nombre, email, password } = req.body;
-    const salt = bcrypt.genSaltSync();
-    const newPassword = bcrypt.hashSync(password, salt);
-    const sqlParams = [{
-            'name': 'nombre',
-            'value': nombre
-        },
-        {
-            'name': 'email',
-            'value': email
-        },
-        {
-            'name': 'password',
-            'value': newPassword
-        },
-        {
-            'name': 'google',
-            'value': 0
-        },
-        {
-            'name': 'facebook',
-            'value': 0
-        },
-        {
-            'name': 'nativo',
-            'value': 1
-        },
-        {
-            'name': 'picture',
-            'value': ''
-        }
-    ];
     const sqlParams1 = [{
         'name': 'email',
         'value': email
@@ -84,6 +53,37 @@ const addUsuario = async(req, res) => {
 
     let usuario = await querySingle('stp_usuarios_login', sqlParams1);
     if (!usuario) {
+        const salt = bcrypt.genSaltSync();
+        const newPassword = bcrypt.hashSync(password, salt);
+        const sqlParams = [{
+                'name': 'nombre',
+                'value': nombre
+            },
+            {
+                'name': 'email',
+                'value': email
+            },
+            {
+                'name': 'password',
+                'value': newPassword
+            },
+            {
+                'name': 'google',
+                'value': 0
+            },
+            {
+                'name': 'facebook',
+                'value': 0
+            },
+            {
+                'name': 'nativo',
+                'value': 1
+            },
+            {
+                'name': 'picture',
+                'value': ''
+            }
+        ];
         usuario = await querySingle('stp_usuarios_add', sqlParams);
         if (usuario) {
             res.json({
@@ -184,32 +184,46 @@ const deleteUsuario = async(req, res) => {
 
 const changePassword = async(req, res) => {
     const { email, password } = req.body;
-    const salt = bcrypt.genSaltSync();
-    const newPassword = bcrypt.hashSync(password, salt);
-    const sqlParams = [{
-            'name': 'email',
-            'value': email
-        },
-        {
-            'name': 'password',
-            'value': newPassword
-        }
-    ]
+    const sqlParam = [{
+        'name': 'email',
+        'value': email
+    }]
+    let usuario = await querySingle('stp_usuarios_login', sqlParam)
+    if (usuario) {
+        const salt = bcrypt.genSaltSync();
+        const newPassword = bcrypt.hashSync(password, salt);
+        const sqlParams = [{
+                'name': 'email',
+                'value': email
+            },
+            {
+                'name': 'password',
+                'value': newPassword
+            }
+        ]
 
-    let rowsAffected = await execute('stp_usuarios_changePassword', sqlParams);
-    if (rowsAffected != 0) {
-        res.json({
-            status: true,
-            message: 'Contraseña actualizada correctamente',
-            data: 1
-        });
+        let rowsAffected = await execute('stp_usuarios_changePassword', sqlParams);
+        if (rowsAffected != 0) {
+            res.json({
+                status: true,
+                message: 'Contraseña actualizada correctamente',
+                data: 1
+            });
+        } else {
+            res.json({
+                status: false,
+                message: 'Ocurrio un error al actualizar la contraseña',
+                data: 0
+            });
+        }
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al actualizar la contraseña',
-            data: 0
-        });
+            message: 'No existe un usuario con ese email',
+            data: null
+        })
     }
+
 }
 
 module.exports = {

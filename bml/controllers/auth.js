@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const { generateJWT } = require('../helpers/jwt');
 const { querySingle } = require('../../dal/data-access');
 const { googleVerify } = require('../helpers/google-verify');
-const { validarJWT } = require('../middlewares/validar-jwt');
 
 const login = async(req, res) => {
     const { email, password } = req.body;
@@ -53,7 +52,6 @@ const googleSignIn = async(req, res) => {
             'value': email
         }];
         usuario = await querySingle('stp_usuarios_login', sqlParams);
-        console.log(usuario);
         //verificasr si existe en BD
         if (!usuario) {
             //crear usuario

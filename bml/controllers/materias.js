@@ -44,7 +44,9 @@ const getMateria = async(req, res) => {
 
 //Agregar materia
 const addMateria = async(req, res) => {
-    const { nombre, horas, horasP, horasT, creditos } = req.body;
+    const { nombre, horas, creditos } = req.body;
+    const horasP = horas * 4;
+    const horasT = horasP * 3;
     const sqlParams = [{
             'name': 'nombre',
             'value': nombre
@@ -86,7 +88,9 @@ const addMateria = async(req, res) => {
 //Actualizar materia
 const updateMateria = async(req, res) => {
     const { id } = req.params;
-    const { nombre, horas, horasP, horasT, creditos } = req.body;
+    const { nombre, horas, creditos } = req.body;
+    const horasP = horas * 4;
+    const horasT = horasP * 3;
     const sqlParams = [{
             'name': 'idMateria',
             'value': id

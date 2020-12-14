@@ -1,7 +1,7 @@
 const Router = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../bml/middlewares/validar-campos');
-const { getUsuarios, getUsuario, addUsuario, updateUsuario, deleteUsuario, changePassword } = require('../bml/controllers/usuarios')
+const { getUsuarios, getUsuario, addUsuario, updateUsuario, deleteUsuario, changePassword, getUsuarioEmail } = require('../bml/controllers/usuarios')
 const { validarJWT } = require('../bml/middlewares/validar-jwt');
 
 const router = Router();
@@ -11,6 +11,13 @@ router.get('/', getUsuarios);
 
 //Getbyid
 router.get('/:id', getUsuario);
+
+//Getbyemail
+router.put('/email', [
+        check('email', 'El email es requerido').not().isEmpty(),
+        validarCampos
+    ],
+    getUsuarioEmail);
 
 //Add
 router.post('/', [

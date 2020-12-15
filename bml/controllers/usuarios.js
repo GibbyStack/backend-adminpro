@@ -109,8 +109,13 @@ const addUsuario = async(req, res) => {
 
 //Actualizar usuario
 const updateUsuario = async(req, res) => {
-    const { nombre, email, password, picture } = req.body;
-
+    const { nombre, email, picture } = req.body;
+    let pict;
+    if (picture != '') {
+        pict = picture;
+    } else {
+        pict = null;
+    }
     const sqlParams = [{
             'name': 'nombre',
             'value': nombre
@@ -118,10 +123,6 @@ const updateUsuario = async(req, res) => {
         {
             'name': 'email',
             'value': email
-        },
-        {
-            'name': 'password',
-            'value': password
         },
         {
             'name': 'google',
@@ -137,7 +138,7 @@ const updateUsuario = async(req, res) => {
         },
         {
             'name': 'picture',
-            'value': picture
+            'value': pict
         }
     ];
 

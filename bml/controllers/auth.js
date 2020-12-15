@@ -36,7 +36,8 @@ const login = async(req, res) => {
     res.json({
         status: true,
         message: 'Acceso correcto',
-        data: token
+        data: token,
+        user: usuario
     });
 }
 
@@ -122,7 +123,8 @@ const googleSignIn = async(req, res) => {
         res.json({
             status: true,
             message: 'Acceso por google correcto',
-            data: token
+            data: token,
+            user: usuario
         });
     } catch (err) {
         res.json({

@@ -43,31 +43,6 @@ const getUsuario = async(req, res) => {
     }
 }
 
-//Obtener usuario email
-const getUsuarioEmail = async(req, res) => {
-    const { email } = req.body;
-    let usuario = null;
-    const sqlParams = [{
-        'name': 'email',
-        'value': email
-    }];
-
-    usuario = await querySingle('stp_usuarios_login', sqlParams);
-    if (usuario) {
-        res.json({
-            status: true,
-            message: 'Consulta exitosa',
-            data: usuario
-        })
-    } else {
-        res.json({
-            status: false,
-            message: 'No existe usuario con ese email',
-            data: null
-        })
-    }
-}
-
 //Agregar usuario
 const addUsuario = async(req, res) => {
     const { nombre, email, password } = req.body;
@@ -134,7 +109,7 @@ const addUsuario = async(req, res) => {
 
 //Actualizar usuario
 const updateUsuario = async(req, res) => {
-    const { nombre, email, password } = req.body;
+    const { nombre, email, password, picture } = req.body;
 
     const sqlParams = [{
             'name': 'nombre',
@@ -162,7 +137,7 @@ const updateUsuario = async(req, res) => {
         },
         {
             'name': 'picture',
-            'value': ''
+            'value': picture
         }
     ];
 
@@ -257,6 +232,5 @@ module.exports = {
     addUsuario,
     updateUsuario,
     deleteUsuario,
-    changePassword,
-    getUsuarioEmail
+    changePassword
 }

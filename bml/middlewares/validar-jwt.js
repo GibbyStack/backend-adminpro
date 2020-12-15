@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { getUsuario } = require('../controllers/usuarios');
 const { generateJWT } = require('../helpers/jwt');
 
 const validarJWT = (req, res, next) => {
@@ -51,7 +52,34 @@ const renewJWT = async(req, res, next) => {
     }
 }
 
+const getUsuarioJWT = async(req, res, next) => {
+    const token = req.header('x-token');
+    if (!token) {
+        return res.json({
+            status: false,
+            message: 'No hay token en la peticion',
+            data: null
+        });
+    }
+    try {
+        const payload = jwt.decode(token, process.env.JWT_SECRET);
+        return res.json({
+            status: true,
+            message: 'Token válido',
+            data: payload
+        });
+        next();
+    } catch (error) {
+        return res.json({
+            status: false,
+            message: 'Token no válido',
+            data: null
+        });
+    }
+}
+
 module.exports = {
     validarJWT,
-    renewJWT
+    renewJWT,
+    getUsuarioJWT
 }

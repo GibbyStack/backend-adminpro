@@ -97,10 +97,6 @@ const googleSignIn = async(req, res) => {
                     'value': usuario.email
                 },
                 {
-                    'name': 'password',
-                    'value': usuario.password
-                },
-                {
                     'name': 'google',
                     'value': 1
                 },

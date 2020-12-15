@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const { getUsuario } = require('../controllers/usuarios');
 const { generateJWT } = require('../helpers/jwt');
 
 const validarJWT = (req, res, next) => {
@@ -7,7 +6,7 @@ const validarJWT = (req, res, next) => {
     if (!token) {
         return res.json({
             status: false,
-            message: 'No hay token en la peticion',
+            message: 'There is no token in the request',
             data: null
         });
     }
@@ -18,7 +17,7 @@ const validarJWT = (req, res, next) => {
     } catch (error) {
         return res.json({
             status: false,
-            message: 'Token no válido',
+            message: 'Invalid token',
             data: null
         });
     }
@@ -29,7 +28,7 @@ const renewJWT = async(req, res, next) => {
     if (!token) {
         return res.json({
             status: false,
-            message: 'No hay token en la peticion',
+            message: 'There is no token in the request',
             data: null
         });
     }
@@ -39,40 +38,14 @@ const renewJWT = async(req, res, next) => {
         const newtoken = await generateJWT(id);
         return res.json({
             status: true,
-            message: 'Token válido',
+            message: 'Valid Token',
             data: newtoken
         });
         next();
     } catch (error) {
         return res.json({
             status: false,
-            message: 'Token no válido',
-            data: null
-        });
-    }
-}
-
-const getUsuarioJWT = async(req, res, next) => {
-    const token = req.header('x-token');
-    if (!token) {
-        return res.json({
-            status: false,
-            message: 'No hay token en la peticion',
-            data: null
-        });
-    }
-    try {
-        const payload = jwt.decode(token, process.env.JWT_SECRET);
-        return res.json({
-            status: true,
-            message: 'Token válido',
-            data: payload
-        });
-        next();
-    } catch (error) {
-        return res.json({
-            status: false,
-            message: 'Token no válido',
+            message: 'Invalid token',
             data: null
         });
     }
@@ -80,6 +53,5 @@ const getUsuarioJWT = async(req, res, next) => {
 
 module.exports = {
     validarJWT,
-    renewJWT,
-    getUsuarioJWT
+    renewJWT
 }

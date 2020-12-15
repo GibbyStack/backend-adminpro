@@ -2,17 +2,19 @@ const Router = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../bml/middlewares/validar-campos');
 const { getMaterias, getMateria, addMateria, updateMateria, deleteMateria } = require('../bml/controllers/materias');
+const { validarJWT } = require('../bml/middlewares/validar-jwt');
 
 const router = Router();
 
 //GetAll
-router.get('/', getMaterias);
+router.get('/', validarJWT, getMaterias);
 
 //Getbyid
-router.get('/:id', getMateria);
+router.get('/:id', validarJWT, getMateria);
 
 //Add
 router.post('/', [
+        validarJWT,
         check('nombre', 'El nombre es requerido').not().isEmpty(),
         check('horas', 'Las horas son requeridas').not().isEmpty(),
         check('horasP', 'Las horasP son requeridas').not().isEmpty(),
@@ -24,6 +26,7 @@ router.post('/', [
 
 //Update
 router.put('/:id', [
+        validarJWT,
         check('nombre', 'El nombre es requerido').not().isEmpty(),
         check('horas', 'Las horas son requeridas').not().isEmpty(),
         check('horasP', 'Las horasP son requeridas').not().isEmpty(),
@@ -34,6 +37,6 @@ router.put('/:id', [
     updateMateria);
 
 //Delete
-router.delete('/:id', deleteMateria);
+router.delete('/:id', validarJWT, deleteMateria);
 
 module.exports = router;

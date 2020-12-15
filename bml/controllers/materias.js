@@ -6,13 +6,13 @@ const getMaterias = async(req, res) => {
     if (materias) {
         res.json({
             status: true,
-            message: 'Consulta exitosa',
+            message: 'Successful consultation',
             data: materias
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al consultar las materias',
+            message: 'An error occurred when consulting the subjects',
             data: null
         });
     }
@@ -30,13 +30,13 @@ const getMateria = async(req, res) => {
     if (materia) {
         res.json({
             status: true,
-            message: 'Consulta exitosa',
+            message: 'Successful consultation',
             data: materia
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al consultar la materia',
+            message: 'An error occurred when consulting the subject',
             data: null
         });
     }
@@ -73,13 +73,13 @@ const addMateria = async(req, res) => {
     if (rowsAffected != 0) {
         res.json({
             status: true,
-            message: 'Materia agregada exitosamente',
+            message: 'Subject added successfully',
             data: 1
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al agregar la materia',
+            message: 'An error occurred while adding the subject',
             data: 0
         });
     }
@@ -122,13 +122,13 @@ const updateMateria = async(req, res) => {
     if (rowsAffected != 0) {
         res.json({
             status: true,
-            message: 'Materia actualizada correctamente',
+            message: 'Subject updated correctly',
             data: 1
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al actualizar la materia',
+            message: 'An error occurred while updating the subject',
             data: 0
         });
     }
@@ -146,13 +146,13 @@ const deleteMateria = async(req, res) => {
     if (rowsAffected != 0) {
         res.json({
             status: true,
-            message: 'Materia eliminada correctamente',
+            message: 'Subject successfully removed',
             data: 1
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al eliminar la materia',
+            message: 'An error occurred while deleting the subject',
             data: 0
         });
     }

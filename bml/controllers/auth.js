@@ -16,7 +16,7 @@ const login = async(req, res) => {
     if (!usuario) {
         res.json({
             status: false,
-            message: 'Email no encontrado',
+            message: 'Email not found',
             data: null
         });
     }
@@ -26,7 +26,7 @@ const login = async(req, res) => {
     if (!validPassword) {
         res.json({
             status: false,
-            message: 'Contraseña incorrecta',
+            message: 'Incorrect password',
             data: null
         });
     }
@@ -35,7 +35,7 @@ const login = async(req, res) => {
 
     res.json({
         status: true,
-        message: 'Acceso correcto',
+        message: 'Correct access',
         data: token,
         user: usuario
     });
@@ -122,14 +122,14 @@ const googleSignIn = async(req, res) => {
         const token = await generateJWT(usuario.idUsuario);
         res.json({
             status: true,
-            message: 'Acceso por google correcto',
+            message: 'Correct access by google',
             data: token,
             user: usuario
         });
     } catch (err) {
         res.json({
             status: false,
-            message: 'Acceso por google incorrecto',
+            message: 'Incorrect access by google',
             data: err
         });
     }

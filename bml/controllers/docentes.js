@@ -6,13 +6,13 @@ const getDocentes = async(req, res) => {
     if (docentes) {
         res.json({
             status: true,
-            message: 'Consulta exitosa',
+            message: 'Successful consultation',
             data: docentes
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al consultar los docentes',
+            message: 'An error occurred while querying teachers',
             data: null
         });
     }
@@ -30,13 +30,13 @@ const getDocente = async(req, res) => {
     if (docente) {
         res.json({
             status: true,
-            message: 'Consulta exitosa',
+            message: 'Successful consultation',
             data: docente
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al consultar el docente',
+            message: 'An error occurred when consulting the teacher',
             data: null
         });
     }
@@ -67,13 +67,13 @@ const addDocente = async(req, res) => {
     if (rowsAffected != 0) {
         res.json({
             status: true,
-            message: 'Docente agregado exitosamente',
+            message: 'Teacher successfully added',
             data: 1
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al agregar el docente',
+            message: 'An error occurred while adding the teacher',
             data: 1
         });
     }
@@ -110,13 +110,13 @@ const updateDocente = async(req, res) => {
     if (rowsAffected != 0) {
         res.json({
             status: true,
-            message: 'Docente actualizado correctamente',
+            message: 'Teacher successfully updated',
             data: 1
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al actualizar el docente',
+            message: 'An error occurred while updating the teacher',
             data: 0
         });
     }
@@ -134,13 +134,13 @@ const deleteDocente = async(req, res) => {
     if (rowsAffected != 0) {
         res.json({
             status: true,
-            message: 'Docente eliminado correctamente',
+            message: 'Teacher successfully removed',
             data: 1
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al eliminar el docente',
+            message: 'An error occurred while deleting the teacher',
             dato: 0
         });
     }

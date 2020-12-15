@@ -6,13 +6,13 @@ const getAlumnos = async(req, res) => {
     if (alumnos) {
         res.json({
             status: true,
-            message: 'Consulta exitosa',
+            message: 'Successful consultation',
             data: alumnos
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al consultar los alumnos',
+            message: 'An error occurred while querying students',
             data: null
         });
     }
@@ -30,13 +30,13 @@ const getAlumno = async(req, res) => {
     if (alumno) {
         res.json({
             status: true,
-            message: 'Consulta exitosa',
+            message: 'Successful consultation',
             data: alumno
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al consultar el alumno',
+            message: 'An error occurred while querying the student.',
             data: null
         });
     }
@@ -72,13 +72,13 @@ const addAlumno = async(req, res) => {
     if (rowsAffected != 0) {
         res.json({
             status: true,
-            message: 'Alumno agregado exitosamente',
+            message: 'Student added successfully',
             data: 1
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al agregar el alumno',
+            message: 'An error occurred while adding the student',
             data: 0
         });
     }
@@ -119,13 +119,13 @@ const updateAlumno = async(req, res) => {
     if (rowsAffected != 0) {
         res.json({
             status: true,
-            message: 'Alumno actualizado exitosamente',
+            message: 'Student updated successfully',
             data: 1
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al actualizar el alumno',
+            message: 'An error occurred while updating the student',
             data: 0
         });
     }
@@ -143,13 +143,13 @@ const deleteAlumno = async(req, res) => {
     if (rowsAffected) {
         res.json({
             status: true,
-            message: 'Alumno eliminado exitosamente',
+            message: 'Student successfully eliminated',
             data: 1
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al eliminar el alumno',
+            message: 'An error occurred while deleting the student',
             data: 0
         });
     }

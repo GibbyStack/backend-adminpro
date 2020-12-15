@@ -10,7 +10,7 @@ const router = Router();
 router.get('/', getUsuarios);
 
 //Getbyid
-router.get('/:id', getUsuario);
+router.get('/:id', validarJWT, getUsuario);
 
 //Add
 router.post('/', [
@@ -22,7 +22,8 @@ router.post('/', [
     addUsuario);
 
 //Update
-router.put('/:id', [
+router.put('/', [
+        validarJWT,
         check('nombre', 'El nombre es requerido').not().isEmpty(),
         check('email', 'El email es requerido').not().isEmpty(),
         check('password', 'El password es requerido').not().isEmpty(),
@@ -31,7 +32,7 @@ router.put('/:id', [
     updateUsuario);
 
 //Delete
-router.delete('/:id', deleteUsuario);
+router.delete('/:id', validarJWT, deleteUsuario);
 
 //ChangePassword
 router.put('/changepassword', [

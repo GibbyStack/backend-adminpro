@@ -7,13 +7,13 @@ const getUsuarios = async(req, res) => {
     if (usuarios) {
         res.json({
             status: true,
-            message: 'Consulta exitosa',
+            message: 'Successful consultation',
             data: usuarios
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al consultar los usuarios',
+            message: 'An error occurred while querying users',
             data: null
         });
     }
@@ -31,13 +31,13 @@ const getUsuario = async(req, res) => {
     if (usuario) {
         res.json({
             status: true,
-            message: 'Consulta exitosa',
+            message: 'Successful consultation',
             data: usuario
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al consultar el usuario',
+            message: 'An error occurred while querying the user',
             data: null
         });
     }
@@ -81,27 +81,27 @@ const addUsuario = async(req, res) => {
             },
             {
                 'name': 'picture',
-                'value': ''
+                'value': null
             }
         ];
         usuario = await querySingle('stp_usuarios_add', sqlParams);
         if (usuario) {
             res.json({
                 status: true,
-                message: 'Usuario agregado exitosamente',
+                message: 'User added successfully',
                 data: usuario
             });
         } else {
             res.json({
                 status: false,
-                message: 'Ocurrio un error al agregar el usuario',
+                message: 'An error occurred while adding the user',
                 data: null
             });
         }
     } else {
         res.json({
             status: false,
-            message: 'Ya existe un usuario con ese email',
+            message: 'There is already a user with that email',
             data: null
         })
     }
@@ -146,13 +146,13 @@ const updateUsuario = async(req, res) => {
     if (rowsAffected != 0) {
         res.json({
             status: true,
-            message: 'Usuario actualizado correctamente',
+            message: 'User updated successfully',
             data: 1
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al actualizar el usuario',
+            message: 'An error occurred while updating the user',
             data: 0
         });
     }
@@ -170,13 +170,13 @@ const deleteUsuario = async(req, res) => {
     if (rowsAffected != 0) {
         res.json({
             status: true,
-            message: 'Usuario eliminado correctamente',
+            message: 'User deleted successfully',
             data: 1
         });
     } else {
         res.json({
             status: false,
-            message: 'Ocurrio un error al eliminar el usuario',
+            message: 'An error occurred while deleting the user',
             data: 0
         });
     }
@@ -206,20 +206,20 @@ const changePassword = async(req, res) => {
         if (rowsAffected != 0) {
             res.json({
                 status: true,
-                message: 'Contraseña actualizada correctamente',
+                message: 'Password updated successfully',
                 data: 1
             });
         } else {
             res.json({
                 status: false,
-                message: 'Ocurrio un error al actualizar la contraseña',
+                message: 'An error occurred while updating the password',
                 data: 0
             });
         }
     } else {
         res.json({
             status: false,
-            message: 'No existe un usuario con ese email',
+            message: 'There is no user with that email',
             data: null
         })
     }
